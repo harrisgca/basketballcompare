@@ -9,8 +9,23 @@ angular.module('players').controller('PlayersController', ['$scope', '$statePara
 		$scope.create = function() {
 			// Create new Player object
 			var player = new Players ({
-				name: this.name
+				firstName: this.firstName,
+				lastName: this.lastName,
+				seasons : []
 			});
+
+			/**For some reason Angular isn't allowing me to directly assign an object to the
+			   seasons key. So I just initialize seasons as an empty array & push the seasons
+			   object to it. I have to flatten the array by one level because of this, that's
+			   what the concat method is doing.
+
+			   this.seasonData is a stringified JSON object that I got from parsing CSV data
+			   I then convert data back to JSON object and push data to seasons array
+			**/
+			player.seasons.push(JSON.parse(this.seasonData));
+			player.seasons = [].concat.apply([],player.seasons);
+
+			console.log(player);
 
 			// Redirect after save
 			player.$save(function(response) {
@@ -21,15 +36,16 @@ angular.module('players').controller('PlayersController', ['$scope', '$statePara
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+
 		};
 
 		// Remove existing Player
 		$scope.remove = function(player) {
-			if ( player ) { 
+			if (player) {
 				player.$remove();
 
 				for (var i in $scope.players) {
-					if ($scope.players [i] === player) {
+					if ($scope.players[i] === player) {
 						$scope.players.splice(i, 1);
 					}
 				}
@@ -58,7 +74,7 @@ angular.module('players').controller('PlayersController', ['$scope', '$statePara
 
 		// Find existing Player
 		$scope.findOne = function() {
-			$scope.player = Players.get({ 
+			$scope.player = Players.get({
 				playerId: $stateParams.playerId
 			});
 		};

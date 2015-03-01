@@ -3,7 +3,7 @@
 module.exports = {
 	app: {
 		title: 'basketballcompare',
-		description: 'a tool  to visually represent and analyze a player's career statistics',
+		description: 'a tool  to visually represent and analyze a players career statistics',
 		keywords: 'MongoDB,Express,AngularJS,Node.js,basketball,D3'
 	},
 	port: process.env.PORT || 3000,

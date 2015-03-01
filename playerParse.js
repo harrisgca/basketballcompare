@@ -17,4 +17,4 @@ var player =
 
 var result = Baby.parse(player,{header:true, dynamicTyping:true});
 
-console.log(result);
+console.log(JSON.stringify(result.data));

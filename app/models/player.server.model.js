@@ -10,12 +10,14 @@ var mongoose = require('mongoose'),
  * Player Schema
  */
 var PlayerSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Player name',
-		trim: true
-	},
+	firstName: {
+			type: String,
+			default: '',
+			required: 'Please fill Player name',
+			trim: true
+		},
+	lastName: String,
+	seasons:[],
 	created: {
 		type: Date,
 		default: Date.now
